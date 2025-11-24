@@ -1,21 +1,32 @@
 name: CI
+
 on:
   push:
     branches: [ main ]
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
-- name: Set up Python
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
-- name: Build and push Docker image
+
+      - name: Login to ACR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.ACR_LOGIN }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      - name: Build and push Docker image
         uses: docker/build-push-action@v4
         with:
           context: .
           push: true
-          tags: ${{ env.ACR_LOGIN }}:v1
-        env:
-          ACR_LOGIN: ${{ secrets.ACR_LOGIN }}
+          tags: ${{ secrets.ACR_LOGIN }}/fastapi-sample:v1
