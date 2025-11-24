@@ -1,0 +1,11 @@
+name: CD
+on:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  call-deploy:
+    uses: ./.github/workflows/reusable/deploy.yml
+    with:
+      image: ${{ secrets.ACR_LOGIN }}
+      tag: "v1"

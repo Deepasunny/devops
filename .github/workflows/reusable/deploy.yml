@@ -1,0 +1,28 @@
+name: "Reusable Deploy"
+on:
+  workflow_call:
+    inputs:
+      image:
+        required: true
+        type: string
+      tag:
+        required: true
+        type: string
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+- name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+- name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+- name: Get AKS credentials
+        run: az aks get-credentials --resource-group ${{ secrets.AZ_RESOURCE_GROUP }} --name ${{ secrets.AKS_NAME }} --overwrite-existing
+- name: Helm upgrade
+        uses: deliverybot/helm@v1
+        with:
+          args: upgrade --install fastapi-release ./helm/fastapi-chart --set image.repository=${{ inputs.image }} --set image.tag=${{ inputs.tag }}

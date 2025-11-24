@@ -1,0 +1,8 @@
+replicaCount: 5
+image:
+  repository: deepadevopsacr.azurecr.io/fastapi-sample
+  tag: v1
+
+service:
+  type: LoadBalancer
+  port: 80

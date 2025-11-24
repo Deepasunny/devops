@@ -1,0 +1,21 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+- name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+- name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ${{ env.ACR_LOGIN }}:v1
+        env:
+          ACR_LOGIN: ${{ secrets.ACR_LOGIN }}
