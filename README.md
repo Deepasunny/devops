@@ -1,4 +1,4 @@
-** 3-Day Project: Cloud-Native DevOps Pipeline for FastAPI on AKS **
+3-Day Project: Cloud-Native DevOps Pipeline for FastAPI on AKS 
 
 Project title: Cloud-Native DevOps Pipeline for a Containerized FastAPI App on Azure AKS with Terraform, Helm, GitHub Actions, and Monitoring
 A FastAPI app containerized and pushed to Azure Container Registry (ACR), provisioned AKS via Terraform, deployed using a Helm chart, CI/CD using GitHub Actions (reusable workflows), monitoring with Prometheus + Grafana, and basic logging/observability pointers.
